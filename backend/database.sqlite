@@ -1,0 +1,37 @@
+-- Create Users table
+CREATE TABLE Users (
+    id INTEGER PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Create sqlite_sequence table
+CREATE TABLE sqlite_sequence (
+    name TEXT,
+    seq INTEGER
+);
+
+-- Create Notes table
+CREATE TABLE Notes (
+    id INTEGER PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    color VARCHAR(255),
+    archived TINYINT(1) DEFAULT 0,
+    userId INTEGER NOT NULL,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (userId) REFERENCES Users (id)
+);
+
+-- Create Tags table
+CREATE TABLE Tags (
+    id INTEGER PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    noteId INTEGER NOT NULL,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (noteId) REFERENCES Notes (id)
+);
